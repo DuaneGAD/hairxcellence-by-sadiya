@@ -234,7 +234,7 @@ body:not(.booted) .appwin { opacity: 0; transform: scale(0.975) translateY(10px)
 
 .roster__list {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-  overflow-y: auto; max-height: 784px; padding: 4px; scrollbar-width: thin; scrollbar-color: var(--coral) transparent;
+  overflow-y: auto; max-height: 549px; padding: 4px; scrollbar-width: thin; scrollbar-color: var(--coral) transparent;
 }
 .roster__list::-webkit-scrollbar { width: 5px; height: 5px; }
 .roster__list::-webkit-scrollbar-thumb { background: var(--coral); border-radius: 4px; }
@@ -270,7 +270,7 @@ body:not(.booted) .appwin { opacity: 0; transform: scale(0.975) translateY(10px)
 
 /* ---- Stage --------------------------------------------------------------- */
 .stage {
-  position: relative; border-radius: 18px; overflow: hidden; min-height: 644px;
+  position: relative; border-radius: 18px; overflow: hidden; min-height: 451px;
   background: radial-gradient(80% 70% at 50% 35%, rgba(255, 255, 255, 0.22), rgba(247, 214, 222, 0.06));
   border: 1px solid rgba(255, 255, 255, 0.4); display: grid; place-items: center;
 }
@@ -441,7 +441,7 @@ body:not(.booted) .appwin { opacity: 0; transform: scale(0.975) translateY(10px)
   .stage::after { opacity: 0.035; }
 
   .studio-grid { display: flex; flex-direction: column; gap: 14px; padding: 14px; }
-  .stage { order: 1; min-height: 78vh; }
+  .stage { order: 1; min-height: 55vh; }
   .roster { order: 2; }
   .spec { order: 3; }
 
