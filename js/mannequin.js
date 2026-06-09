@@ -226,10 +226,20 @@ export class Mannequin {
 
   // ---- Public API ----------------------------------------------------------
   setStyle(style) {
-    // fade out everything currently showing
-    this.hairs.forEach((e) => { e.dir = -1; });
-    const entry = this._buildHair(style);
-    this.hairs.push(entry);
+    // Drop never-shown groups so rapid switching can't stack transparent meshes;
+    // fade out whatever was actually visible.
+    for (let i = this.hairs.length - 1; i >= 0; i--) {
+      const e = this.hairs[i];
+      if (e.dir > 0 && e.op < 0.05) {
+        this.scene.remove(e.root);
+        e.root.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
+        e.mat.dispose();
+        this.hairs.splice(i, 1);
+      } else {
+        e.dir = -1;
+      }
+    }
+    this.hairs.push(this._buildHair(style));
   }
 
   setColor(hex) {
@@ -239,6 +249,10 @@ export class Mannequin {
   resize() {
     const w = this.canvas.clientWidth, h = this.canvas.clientHeight;
     if (!w || !h) return;
+    // track DPR + the mobile cap across orientation / breakpoint changes
+    const cap = matchMedia('(max-width: 860px)').matches ? 1.5 : 2;
+    const ratio = Math.min(window.devicePixelRatio || 1, cap);
+    if (this.renderer.getPixelRatio() !== ratio) this.renderer.setPixelRatio(ratio);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(w, h, false);

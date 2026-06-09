@@ -39,9 +39,9 @@ function orderMessage() {
 const GENERIC_MSG = `Hi Sadiya! 👋 I'd like to enquire about your luxury wigs.`;
 
 function refreshWaLinks() {
-  const order = waLink(orderMessage());
-  $('#order-wa').href = order;
-  $('#fab').href = order;
+  // The FAB is a generic, site-wide enquiry link (set once in wireCtas);
+  // only the in-studio order button carries the current selection.
+  $('#order-wa').href = waLink(orderMessage());
 }
 
 // ---------------------------------------------------------------------------
@@ -75,8 +75,6 @@ function buildRoster() {
     tile.className = 'tile';
     tile.type = 'button';
     tile.dataset.index = i;
-    tile.setAttribute('role', 'option');
-    tile.setAttribute('aria-selected', 'false');
     tile.innerHTML = `
       <span class="tile__num">${String(i + 1).padStart(2, '0')}</span>
       <span class="tile__bust">${miniBust(s.hair.shape, hex)}</span>
@@ -128,7 +126,6 @@ function select(i, fromUser = false) {
   $$('#roster .tile').forEach((t) => {
     const on = +t.dataset.index === state.index;
     t.classList.toggle('is-selected', on);
-    t.setAttribute('aria-selected', String(on));
     if (on && fromUser) t.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
   });
 
@@ -166,6 +163,7 @@ function setColor(i, fromKey = false) {
   if (stage3d) stage3d.setColor(c.hex);
   else updateFallback(STYLES[state.index], c.hex);
   updateColorUI();
+  if (fromKey) $(`#swatches .swatch[data-index="${i}"]`)?.focus(); // focus follows selection
   refreshWaLinks();
   wobblePrice();
 }
@@ -225,21 +223,32 @@ function wireSearch() {
       t.hidden = !match;
       if (match) shown++;
     });
-    $('#roster-empty').hidden = shown > 0;
+    // setting text (not toggling `hidden`) lets the role="status" region announce it
+    $('#roster-empty').textContent = shown > 0 ? '' : 'No styles match that search.';
   });
 }
 
 // ---------------------------------------------------------------------------
 //  Navigation: arrows, keyboard
 // ---------------------------------------------------------------------------
+// Step to the next/prev style among the *currently visible* (search-filtered) tiles
+function step(dir) {
+  const visible = $$('#roster .tile').filter((t) => !t.hidden).map((t) => +t.dataset.index);
+  if (!visible.length) return;
+  const pos = visible.indexOf(state.index);
+  if (pos === -1) { select(visible[dir > 0 ? 0 : visible.length - 1], true); return; }
+  select(visible[(pos + dir + visible.length) % visible.length], true);
+}
+
 function wireNav() {
-  $('#prev').addEventListener('click', () => select(state.index - 1, true));
-  $('#next').addEventListener('click', () => select(state.index + 1, true));
+  $('#prev').addEventListener('click', () => step(-1));
+  $('#next').addEventListener('click', () => step(1));
   document.addEventListener('keydown', (e) => {
-    const typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName);
-    if (typing) return;
-    if (e.key === 'ArrowLeft') { select(state.index - 1, true); }
-    else if (e.key === 'ArrowRight') { select(state.index + 1, true); }
+    const el = document.activeElement;
+    if (/^(INPUT|TEXTAREA)$/.test(el?.tagName)) return;     // don't hijack typing
+    if (el?.closest && el.closest('#swatches')) return;      // let swatch arrows recolour
+    if (e.key === 'ArrowLeft') step(-1);
+    else if (e.key === 'ArrowRight') step(1);
   });
 }
 
@@ -358,6 +367,10 @@ async function init() {
   wireCtas();
   fillContact();
   wireReveal();
+
+  // counts derive from the catalogue so they never drift when STYLES changes
+  $('#counter-total').textContent = String(STYLES.length).padStart(2, '0');
+  $('#hero-count').textContent = `${STYLES.length} styles waiting`;
 
   // Reveal the UI immediately; the 3D stage streams in when ready.
   select(0);

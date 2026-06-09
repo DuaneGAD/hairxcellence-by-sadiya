@@ -11,11 +11,11 @@
 export const CONFIG = {
   brand: 'Hairxcellence by Sadiya',
   currency: '₵',                       // Ghana cedi symbol used on price tags
-  whatsapp: '233000000000',            // ← PLACEHOLDER. Put the real number here.
+  whatsapp: '233509949405',            // Sadiya's WhatsApp (0509949405 in intl format)
   instagram: 'hairxcellence_bysadiya', // ← handle without the @
   location: 'East Legon, Accra · Ghana',
-  // ← paste a real Google Maps link / plus-code here
-  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=hair+salon+Accra+Ghana',
+  // ← replace with a real Google Maps place link / plus-code for the studio
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Hairxcellence+by+Sadiya+East+Legon+Accra',
   hours: [
     ['Mon – Fri', '9:00 – 19:00'],
     ['Saturday', '9:00 – 18:00'],

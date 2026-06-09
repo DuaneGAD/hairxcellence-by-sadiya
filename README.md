@@ -46,8 +46,8 @@ Open **`js/data.js`** and edit the `CONFIG` block:
 Then edit the `STYLES` array to add/rename wigs, set prices (in Ghana cedis), lengths, textures
 and which colour each one defaults to. `COLORS` controls the swatch palette.
 
-> ⚠️ The WhatsApp number ships as a placeholder (`233000000000`). The site logs a console warning
-> until you set the real one — **do this first**.
+> ✅ The WhatsApp number is set to **0509949405** (`233509949405`). The Google Maps link is still a
+> generic search — replace `CONFIG.mapsUrl` with the studio's real Maps place link / plus-code before launch.
 
 **Adding real product photos later:** the mannequin is intentionally asset-free so it works out
 of the box. When Sadiya has photos or 3D scans (`.glb`), they can be dropped into the stage in a

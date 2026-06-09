@@ -5,12 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#3a0e1c" />
   <title>HAIRXCELLENCE by Sadiya — Luxury Wigs · Accra</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%233a0e1c'/><text x='16' y='23' font-family='Georgia,serif' font-weight='bold' font-size='21' fill='%23ffffff' text-anchor='middle'>X</text></svg>" />
   <meta name="description" content="Hairxcellence by Sadiya — premium luxury wigs & styled hair in Accra, Ghana. Browse styles like a character-select, spin them in 3D, recolour live, and order on WhatsApp." />
 
   <!-- Open Graph -->
   <meta property="og:title" content="HAIRXCELLENCE by Sadiya — Luxury Wigs" />
   <meta property="og:description" content="Find your look. Premium luxury wigs in Accra — browse in 3D and order on WhatsApp." />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="HAIRXCELLENCE by Sadiya" />
+  <meta property="og:url" content="https://duanegad.github.io/hairxcellence-by-sadiya/" />
+  <!-- TODO: add og:image (an absolute https URL to a 1200x630 share image) once one exists. -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HAIRXCELLENCE by Sadiya — Luxury Wigs" />
+  <meta name="twitter:description" content="Find your look. Premium luxury wigs in Accra — browse in 3D and order on WhatsApp." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -65,7 +72,7 @@
         </p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="#studio">Enter the studio ↓</a>
-          <a class="btn btn--ghost js-wa" href="#" data-wa-generic>Enquire on WhatsApp</a>
+          <a class="btn btn--ghost js-wa" href="#" data-wa-generic target="_blank" rel="noopener">Enquire on WhatsApp</a>
         </div>
       </div>
 
@@ -88,7 +95,7 @@
             <path d="M182 146 Q180 120 162 108 L162 250 Q182 224 182 146 Z" fill="url(#heroHair)" />
           </svg>
         </div>
-        <p class="hero__hint">06 styles waiting</p>
+        <p class="hero__hint" id="hero-count">06 styles waiting</p>
       </div>
     </section>
 
@@ -103,10 +110,10 @@
       <!-- macOS-style app window -->
       <div class="appwin" id="appwin">
         <div class="appwin__chrome">
-          <div class="lights" role="group" aria-label="Window controls">
-            <button class="light light--close" type="button" aria-label="Close"></button>
-            <button class="light light--min" type="button" aria-label="Minimise"></button>
-            <button class="light light--max" type="button" aria-label="Toggle full view"></button>
+          <div class="lights" aria-hidden="true">
+            <button class="light light--close" type="button" tabindex="-1"></button>
+            <button class="light light--min" type="button" tabindex="-1"></button>
+            <button class="light light--max" type="button" tabindex="-1"></button>
           </div>
           <span class="appwin__title">hairxcellence — style studio</span>
           <span class="appwin__spacer"></span>
@@ -119,8 +126,8 @@
               <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               <input type="search" id="search" class="search__input" placeholder="Search the roster…" autocomplete="off" aria-label="Search styles" />
             </div>
-            <div class="roster__list" id="roster" role="listbox" aria-label="Wig styles"></div>
-            <p class="roster__empty" id="roster-empty" hidden>No styles match that search.</p>
+            <div class="roster__list" id="roster" role="group" aria-label="Wig styles"></div>
+            <p class="roster__empty" id="roster-empty" role="status" aria-live="polite"></p>
           </aside>
 
           <!-- CENTRE: 3D stage -->
@@ -172,7 +179,7 @@
 
             <div class="spec__actions">
               <button class="btn btn--cart" id="add-cart" type="button">Add to cart <span class="cart-chip" id="cart-chip" hidden>0</span></button>
-              <a class="btn btn--wa js-wa" id="order-wa" href="#">Order on WhatsApp</a>
+              <a class="btn btn--wa js-wa" id="order-wa" href="#" target="_blank" rel="noopener">Order on WhatsApp</a>
               <button class="btn btn--pay" id="apple-pay" type="button">Buy with <span class="apple"></span> Pay</button>
             </div>
           </aside>
@@ -220,7 +227,7 @@
         </div>
         <div class="vcard glass">
           <h3>Talk to Sadiya</h3>
-          <a class="vlink js-wa" data-wa-generic href="#">WhatsApp →</a>
+          <a class="vlink js-wa" data-wa-generic href="#" target="_blank" rel="noopener">WhatsApp →</a>
           <a class="vlink" id="v-ig" href="#" target="_blank" rel="noopener">Instagram →</a>
         </div>
       </div>
@@ -229,7 +236,7 @@
   </main>
 
   <!-- ===== Persistent WhatsApp CTA ===== -->
-  <a class="fab js-wa" id="fab" href="#" aria-label="Order or enquire on WhatsApp">
+  <a class="fab js-wa" id="fab" href="#" data-wa-generic target="_blank" rel="noopener" aria-label="Order or enquire on WhatsApp">
     <svg viewBox="0 0 32 32" class="fab__icon" aria-hidden="true">
       <path fill="currentColor" d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.3.6 4.4 1.7 6.3L4 29l7.4-1.9c1.8 1 3.9 1.5 6 1.5 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.7c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.4 1.1 1.2-4.3-.3-.4a10 10 0 0 1-1.6-5.4C5.4 9.7 10.1 5 16 5s10.6 4.7 10.6 10.5S21.9 25.7 16 25.7zm5.8-7.8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.6 8.6 0 0 1-2.5-1.6 9.6 9.6 0 0 1-1.8-2.2c-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5s0-.4 0-.6-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.3 2.5 3.8 6 5.3 2.9 1.2 3.5 1 4.1.9.6 0 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/>
     </svg>
