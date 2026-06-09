@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#3a0e1c" />
+  <title>HAIRXCELLENCE by Sadiya — Luxury Wigs · Accra</title>
+  <meta name="description" content="Hairxcellence by Sadiya — premium luxury wigs & styled hair in Accra, Ghana. Browse styles like a character-select, spin them in 3D, recolour live, and order on WhatsApp." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="HAIRXCELLENCE by Sadiya — Luxury Wigs" />
+  <meta property="og:description" content="Find your look. Premium luxury wigs in Accra — browse in 3D and order on WhatsApp." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;0,900;1,500&family=Dancing+Script:wght@600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Three.js via CDN import map (no build step) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- ===== Background: blush grainy gradient + drifting blobs + grain ===== -->
+  <div class="bg" aria-hidden="true">
+    <span class="bg__blob bg__blob--a"></span>
+    <span class="bg__blob bg__blob--b"></span>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <a class="wordmark wordmark--sm" href="#top" aria-label="Hairxcellence by Sadiya home">
+      <span class="wordmark__main">HAIR<span class="wordmark__x">X</span>CELLENCE</span>
+      <span class="wordmark__by">by Sadiya</span>
+    </a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#studio">Styles</a>
+      <a href="#about">About</a>
+      <a href="#visit">Visit</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <div class="hero__inner">
+        <p class="hero__eyebrow">Luxury wigs &amp; styled hair · Accra, Ghana</p>
+        <h1 class="hero__wordmark">
+          <span class="wordmark__main">HAIR<span class="wordmark__x">X</span>CELLENCE</span>
+        </h1>
+        <p class="hero__script">Find your look</p>
+        <p class="hero__lede">
+          Browse the collection like a character-select screen — spin each style in 3D,
+          recolour it live, then order straight from your chat.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#studio">Enter the studio ↓</a>
+          <a class="btn btn--ghost js-wa" href="#" data-wa-generic>Enquire on WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Featured rotating silhouette (CSS, leads the eye into the gallery) -->
+      <div class="hero__feature" aria-hidden="true">
+        <div class="hero__turntable">
+          <svg viewBox="0 0 240 300" class="hero__bust" role="img">
+            <defs>
+              <radialGradient id="heroHair" cx="50%" cy="34%" r="62%">
+                <stop offset="0%" stop-color="#3a2630" />
+                <stop offset="100%" stop-color="#160a10" />
+              </radialGradient>
+            </defs>
+            <ellipse cx="120" cy="266" rx="78" ry="16" fill="rgba(0,0,0,.28)" />
+            <path d="M70 300 Q70 232 120 220 Q170 232 170 300 Z" fill="#cdbfc4" />
+            <rect x="108" y="196" width="24" height="40" rx="10" fill="#cdbfc4" />
+            <ellipse cx="120" cy="150" rx="62" ry="74" fill="#d3c7cb" />
+            <path d="M58 150 Q56 64 120 60 Q184 64 182 150 Q182 96 120 92 Q58 96 58 150 Z" fill="url(#heroHair)" />
+            <path d="M58 146 Q60 120 78 108 L78 250 Q58 224 58 146 Z" fill="url(#heroHair)" />
+            <path d="M182 146 Q180 120 162 108 L162 250 Q182 224 182 146 Z" fill="url(#heroHair)" />
+          </svg>
+        </div>
+        <p class="hero__hint">06 styles waiting</p>
+      </div>
+    </section>
+
+    <!-- ===== STUDIO / CHARACTER-SELECT (centrepiece) ===== -->
+    <section class="studio" id="studio">
+      <header class="section-head">
+        <p class="section-head__eyebrow">The collection</p>
+        <h2 class="section-head__title">Choose your crown</h2>
+        <p class="section-head__sub">Swipe the roster · drag the head to rotate · tap a swatch to recolour</p>
+      </header>
+
+      <!-- macOS-style app window -->
+      <div class="appwin" id="appwin">
+        <div class="appwin__chrome">
+          <div class="lights" role="group" aria-label="Window controls">
+            <button class="light light--close" type="button" aria-label="Close"></button>
+            <button class="light light--min" type="button" aria-label="Minimise"></button>
+            <button class="light light--max" type="button" aria-label="Toggle full view"></button>
+          </div>
+          <span class="appwin__title">hairxcellence — style studio</span>
+          <span class="appwin__spacer"></span>
+        </div>
+
+        <div class="studio-grid">
+          <!-- LEFT: roster -->
+          <aside class="roster" aria-label="Style roster">
+            <div class="search">
+              <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input type="search" id="search" class="search__input" placeholder="Search the roster…" autocomplete="off" aria-label="Search styles" />
+            </div>
+            <div class="roster__list" id="roster" role="listbox" aria-label="Wig styles"></div>
+            <p class="roster__empty" id="roster-empty" hidden>No styles match that search.</p>
+          </aside>
+
+          <!-- CENTRE: 3D stage -->
+          <div class="stage" id="stage">
+            <span class="stage__counter"><span id="counter-now">01</span> <span class="stage__counter-sep">/</span> <span id="counter-total">06</span></span>
+
+            <canvas id="stage-canvas" class="stage__canvas"></canvas>
+            <!-- CSS/SVG fallback bust (shown if WebGL is unavailable) -->
+            <div class="stage__fallback" id="stage-fallback" hidden></div>
+
+            <p class="rotate-hint" id="rotate-hint">drag to rotate ↻</p>
+
+            <div class="price-tag" id="price-tag">
+              <svg class="price-tag__paper" viewBox="0 0 120 70" aria-hidden="true">
+                <path d="M14 6 H112 a4 4 0 0 1 4 4 V60 a4 4 0 0 1 -4 4 H14 L2 35 Z" fill="#fbf3ec" stroke="rgba(0,0,0,.12)"/>
+                <circle cx="16" cy="35" r="4" fill="none" stroke="rgba(0,0,0,.18)"/>
+              </svg>
+              <span class="price-tag__amt" id="price-amt">₵500</span>
+            </div>
+
+            <span class="stage__stamp" id="select-stamp" aria-hidden="true">SELECT</span>
+
+            <!-- mobile filmstrip nav arrows -->
+            <button class="stage__nav stage__nav--prev" id="prev" type="button" aria-label="Previous style">‹</button>
+            <button class="stage__nav stage__nav--next" id="next" type="button" aria-label="Next style">›</button>
+          </div>
+
+          <!-- RIGHT: spec -->
+          <aside class="spec" aria-label="Selected style details">
+            <h3 class="spec__name" id="spec-name">Body Wave 32&quot;</h3>
+            <p class="spec__vibe" id="spec-vibe">A statement length with soft directional movement.</p>
+
+            <dl class="spec__fields">
+              <div class="field"><dt>Length</dt><dd id="f-length">32&quot;</dd></div>
+              <div class="field"><dt>Texture</dt><dd id="f-texture">Body Wave</dd></div>
+              <div class="field"><dt>Style</dt><dd id="f-style">Wavy</dd></div>
+            </dl>
+
+            <div class="spec__colour">
+              <p class="spec__label">Colour — <span id="f-colour">Noir / Jet Black</span></p>
+              <div class="swatches" id="swatches" role="radiogroup" aria-label="Wig colour"></div>
+            </div>
+
+            <div class="signature">
+              <span class="spec__label">Signature</span>
+              <div class="signature__bar" id="sig-bar" aria-hidden="true"></div>
+              <span class="signature__word" id="sig-word">Statement</span>
+            </div>
+
+            <div class="spec__actions">
+              <button class="btn btn--cart" id="add-cart" type="button">Add to cart <span class="cart-chip" id="cart-chip" hidden>0</span></button>
+              <a class="btn btn--wa js-wa" id="order-wa" href="#">Order on WhatsApp</a>
+              <button class="btn btn--pay" id="apple-pay" type="button">Buy with <span class="apple"></span> Pay</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about" id="about">
+      <div class="about__panel glass">
+        <p class="section-head__eyebrow">The atelier</p>
+        <h2 class="about__title">Crafted by Sadiya</h2>
+        <p class="about__script">artistry, in every strand</p>
+        <div class="about__cols">
+          <p>Hairxcellence began with a simple obsession: hair that looks effortless and lasts.
+          From her Accra studio, Sadiya hand-selects each cap, customises the lace, and styles every
+          unit to order — so the piece you spin on screen is the piece that arrives at your door.</p>
+          <p>Every wig is a small commission. Tell her the length, the texture and the colour you're
+          dreaming of, and she'll build it. Whether it's a bone-straight 28&quot; or a crown-stopping
+          afro, the standard is the same: luxurious, durable, unmistakably you.</p>
+        </div>
+        <ul class="about__pillars">
+          <li><span>01</span> Premium hand-tied lace</li>
+          <li><span>02</span> Custom colour &amp; cut</li>
+          <li><span>03</span> Styled &amp; ready to wear</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== VISIT / CONTACT ===== -->
+    <section class="visit" id="visit">
+      <header class="section-head">
+        <p class="section-head__eyebrow">Come through</p>
+        <h2 class="section-head__title">Visit the studio</h2>
+      </header>
+      <div class="visit__grid">
+        <div class="vcard glass">
+          <h3>Find us</h3>
+          <p id="v-location">Accra, Ghana</p>
+          <a class="vlink" id="v-maps" href="#" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+        <div class="vcard glass">
+          <h3>Hours</h3>
+          <ul class="hours" id="v-hours"></ul>
+        </div>
+        <div class="vcard glass">
+          <h3>Talk to Sadiya</h3>
+          <a class="vlink js-wa" data-wa-generic href="#">WhatsApp →</a>
+          <a class="vlink" id="v-ig" href="#" target="_blank" rel="noopener">Instagram →</a>
+        </div>
+      </div>
+      <p class="visit__foot">© <span id="year">2026</span> Hairxcellence by Sadiya · Accra, Ghana</p>
+    </section>
+  </main>
+
+  <!-- ===== Persistent WhatsApp CTA ===== -->
+  <a class="fab js-wa" id="fab" href="#" aria-label="Order or enquire on WhatsApp">
+    <svg viewBox="0 0 32 32" class="fab__icon" aria-hidden="true">
+      <path fill="currentColor" d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.3.6 4.4 1.7 6.3L4 29l7.4-1.9c1.8 1 3.9 1.5 6 1.5 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.7c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.4 1.1 1.2-4.3-.3-.4a10 10 0 0 1-1.6-5.4C5.4 9.7 10.1 5 16 5s10.6 4.7 10.6 10.5S21.9 25.7 16 25.7zm5.8-7.8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.6 8.6 0 0 1-2.5-1.6 9.6 9.6 0 0 1-1.8-2.2c-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5s0-.4 0-.6-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.3 2.5 3.8 6 5.3 2.9 1.2 3.5 1 4.1.9.6 0 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/>
+    </svg>
+    <span class="fab__label">Order / Enquire</span>
+  </a>
+
+  <!-- toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
