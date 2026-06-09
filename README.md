@@ -46,8 +46,9 @@ Open **`js/data.js`** and edit the `CONFIG` block:
 Then edit the `STYLES` array to add/rename wigs, set prices (in Ghana cedis), lengths, textures
 and which colour each one defaults to. `COLORS` controls the swatch palette.
 
-> ✅ The WhatsApp number is set to **0509949405** (`233509949405`). The Google Maps link is still a
-> generic search — replace `CONFIG.mapsUrl` with the studio's real Maps place link / plus-code before launch.
+> ✅ WhatsApp number (`233509949405`) and the real Google Maps location (HairXcellence | Gia) are set.
+> ⚠️ The **prices** in `STYLES` are placeholders — set Sadiya's real prices (in cedis) before launch.
+> The displayed area is a neutral "Accra · Ghana"; set `CONFIG.location` to the exact neighbourhood/address if you want it shown.
 
 **Adding real product photos later:** the mannequin is intentionally asset-free so it works out
 of the box. When Sadiya has photos or 3D scans (`.glb`), they can be dropped into the stage in a

@@ -77,9 +77,9 @@ export class Mannequin {
     ctrl.enablePan = false;
     ctrl.enableDamping = true;
     ctrl.dampingFactor = 0.08;
-    ctrl.rotateSpeed = 0.7;
-    ctrl.minPolarAngle = 1.05;
-    ctrl.maxPolarAngle = 1.86;
+    ctrl.rotateSpeed = 0.85;          // responsive grab-and-spin
+    ctrl.minPolarAngle = 0.82;        // wider tilt range for free manual dragging
+    ctrl.maxPolarAngle = 2.12;
     ctrl.autoRotate = !matchMedia('(prefers-reduced-motion: reduce)').matches;
     ctrl.autoRotateSpeed = 0.9;
     ctrl.addEventListener('start', () => this._firstInteract());

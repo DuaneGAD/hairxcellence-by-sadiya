@@ -1,14 +1,14 @@
 // ============================================================================
 //  app.js — UI wiring for the Hairxcellence character-select studio
 // ============================================================================
-import { CONFIG, COLORS, STYLES, SIGNATURE_WORDS } from './data.js';
+import { CONFIG, COLORS, STYLES, SIGNATURE_WORDS, LENGTHS } from './data.js';
 // Three.js (mannequin.js) is imported lazily in init() so that a CDN/WebGL
 // failure degrades to the SVG fallback instead of breaking the whole UI.
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
-const state = { index: 0, colorIndex: STYLES[0].defaultColor, cart: 0 };
+const state = { index: 0, colorIndex: STYLES[0].defaultColor, length: STYLES[0].defaultLength, cart: 0 };
 let stage3d = null;        // Mannequin instance (or null in fallback mode)
 let fallbackEl = null;
 
@@ -33,7 +33,7 @@ function waLink(text) {
 function orderMessage() {
   const s = STYLES[state.index];
   const c = COLORS[state.colorIndex];
-  return `Hi Sadiya! 👋 I'd love to order the ${s.name} — Length ${s.length}, ` +
+  return `Hi Sadiya! 👋 I'd love to order the ${s.name} — Length ${state.length}, ` +
     `Colour ${c.name}, Style ${s.styleTag} (${CONFIG.currency}${s.price}). Is it available?`;
 }
 const GENERIC_MSG = `Hi Sadiya! 👋 I'd like to enquire about your luxury wigs.`;
@@ -86,6 +86,20 @@ function buildRoster() {
   });
 }
 
+function buildLengths() {
+  const sel = $('#f-length');
+  sel.innerHTML = '';
+  LENGTHS.forEach((l) => { const o = document.createElement('option'); o.value = l; o.textContent = l; sel.appendChild(o); });
+}
+
+function wireLength() {
+  $('#f-length').addEventListener('change', () => {
+    state.length = $('#f-length').value;
+    refreshWaLinks();
+    wobblePrice();
+  });
+}
+
 function buildSwatches() {
   const wrap = $('#swatches');
   wrap.innerHTML = '';
@@ -119,6 +133,7 @@ function select(i, fromUser = false) {
   state.index = (i + n) % n;
   const s = STYLES[state.index];
   state.colorIndex = s.defaultColor;
+  state.length = s.defaultLength;
 
   pushStage();
 
@@ -132,7 +147,7 @@ function select(i, fromUser = false) {
   // spec
   $('#spec-name').textContent = s.name;
   $('#spec-vibe').textContent = s.vibe;
-  $('#f-length').textContent = s.length;
+  $('#f-length').value = state.length;
   $('#f-texture').textContent = s.texture;
   $('#f-style').textContent = s.styleTag;
   $('#price-amt').textContent = `${CONFIG.currency}${s.price}`;
@@ -361,6 +376,8 @@ function updateFallback(s, hex) {
 async function init() {
   buildRoster();
   buildSwatches();
+  buildLengths();
+  wireLength();
   wireSearch();
   wireNav();
   wireChrome();
